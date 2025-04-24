@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {Meteor} from "meteor/meteor"
 
 export const LoginForm  = () => {
 
@@ -9,22 +9,26 @@ export const LoginForm  = () => {
     const handleSubumit = (e) => {
         e.preventDefault();
 
-        
+        Meteor.loginWithPassword(username,password);
 
-    }
+    };
+
     return(
+        <>
         <form onSubmit={handleSubumit}>
             <h1>Bem vindo ao ToDo List</h1>
             <input 
             type="text"
-            placeholder="usuário"
+            placeholder="Usuário"
+            name="username"
             onChange={(e) => setUsername(e.target.value)}
             required/>
 
             <input
             type="text"
-            placeholder="senha"
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Senha"
+            name="senha"
+            onChange={(e) => setPassword(e.target.value)}
             required/>
 
             <button 
@@ -33,5 +37,9 @@ export const LoginForm  = () => {
             </button>
 
         </form>
+        
+        <span>Cadastrar</span>
+        <span>Recuperar Senha</span>
+        </>
     );
 }
