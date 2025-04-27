@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 
-const SEED_USERNAME = 'meteorite';
+const SEED_USERNAME = 'maria';
 const SEED_PASSWORD = 'password';
 
 Meteor.startup(async () => {
@@ -14,3 +14,5 @@ Meteor.startup(async () => {
   }
   
 });
+
+Meteor.startup

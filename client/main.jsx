@@ -3,6 +3,12 @@ import { createRoot } from "react-dom/client";
 import { Meteor } from "meteor/meteor";
 import { App } from "/imports/ui/App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ListTasks } from "../imports/ui/ListTasks";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 Meteor.startup(() => {
   const container = document.getElementById("react-target");
@@ -11,7 +17,7 @@ Meteor.startup(() => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        {/* <Route path="tasks" element={<About />} /> */}
+        <Route path="tasks" element={<ListTasks />} />
       </Routes>
     </BrowserRouter>
   );

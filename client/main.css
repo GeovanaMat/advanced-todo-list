@@ -1,4 +1,14 @@
 body {
-  padding: 10px;
-  font-family: sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
+
+.tasks-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+
+
