@@ -3,16 +3,30 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-export default function BasicMenu() {
+import { useNavigate } from 'react-router-dom';
+
+export default function BasicMenu({task, onRemoveClick, onEditClick}) {
+  
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleRemove = () => {
+    
+    setAnchorEl(null);
+    onRemoveClick(task);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
-    
-  };
+  }
+
+  const handleEdit = () => {
+    onEditClick(task)
+  }
 
   return (
     <div>
@@ -28,15 +42,14 @@ export default function BasicMenu() {
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
-        open={open}
+        open={open} 
         onClose={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleEdit}>Editar</MenuItem>
+        <MenuItem onClick={() => (onRemoveClick(task))}>Remover</MenuItem>
       </Menu>
     </div>
   );

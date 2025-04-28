@@ -4,6 +4,7 @@ import { Meteor } from "meteor/meteor";
 import { App } from "/imports/ui/App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ListTasks } from "../imports/ui/ListTasks";
+import {InfoTask} from '../imports/ui/InfoTask';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -18,6 +19,7 @@ Meteor.startup(() => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="tasks" element={<ListTasks />} />
+        <Route path="/tasks/:taskId" element={<InfoTask />} />
       </Routes>
     </BrowserRouter>
   );

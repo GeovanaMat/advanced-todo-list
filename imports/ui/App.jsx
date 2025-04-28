@@ -6,6 +6,9 @@ import { Home } from './Home';
 import { Button } from '@mui/material';
 import ButtonUsage from './ButtonUsage';
 
+
+
+
 export const App = () => {
   const user = useTracker(() => Meteor.user());
 

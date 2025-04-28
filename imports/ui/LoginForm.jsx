@@ -1,45 +1,48 @@
 import React, { useState } from "react";
-import {Meteor} from "meteor/meteor"
+import { Meteor } from "meteor/meteor";
+import {Button, Stack, TextField} from '@mui/material'
+export const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-export const LoginForm  = () => {
+  const handleSubumit = (e) => {
+    e.preventDefault();
+    Meteor.loginWithPassword(username, password);
+  };
 
-    const[username, setUsername] = useState("");
-    const[password, setPassword] = useState("");
+  return (
+    <>
+      <form className="form" onSubmit={handleSubumit}>
+        <h1>Bem vindo ao ToDo List</h1>
 
-    const handleSubumit = (e) => {
-        e.preventDefault();
+        <Stack 
+        spacing={3}
+        width={'30%'}
+        >
+        <TextField
+          required
+          id="outlined-required"
+          label="Usuário"
+          type="text"
+          name="usuario"
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-        Meteor.loginWithPassword(username,password);
+        <TextField
+          required
+          id="outlined-required"
+          label="Senha"
+          type="password"
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-    };
+        <Button type="submit" variant="contained" color="gray">Entrar</Button>
+        </Stack> 
+      </form>
 
-    return(
-        <>
-        <form onSubmit={handleSubumit}>
-            <h1>Bem vindo ao ToDo List</h1>
-            <input 
-            type="text"
-            placeholder="Usuário"
-            name="username"
-            onChange={(e) => setUsername(e.target.value)}
-            required/>
-
-            <input
-            type="text"
-            placeholder="Senha"
-            name="senha"
-            onChange={(e) => setPassword(e.target.value)}
-            required/>
-
-            <button 
-            type="submit">
-                Entrar
-            </button>
-
-        </form>
-        
-        <span>Cadastrar</span>
-        <span>Recuperar Senha</span>
-        </>
-    );
-}
+      <span>Cadastrar</span>
+      <span>Recuperar Senha</span>
+    </>
+  );
+};
