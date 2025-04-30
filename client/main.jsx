@@ -9,6 +9,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { FormProfile } from "../imports/ui/FormProfile";
 
 
 Meteor.startup(() => {
@@ -20,6 +21,8 @@ Meteor.startup(() => {
         <Route path="/" element={<App />} />
         <Route path="tasks" element={<ListTasks />} />
         <Route path="/tasks/:taskId" element={<InfoTask />} />
+        <Route path="profile" element={<FormProfile />} />
+
       </Routes>
     </BrowserRouter>
   );

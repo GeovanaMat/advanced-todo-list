@@ -3,8 +3,13 @@ import { Accounts } from 'meteor/accounts-base';
 import "../imports/api/TasksPublications"
 import { TasksCollection } from '../imports/api/TasksCollection';
 import "../imports/api/TasksMethods"
+import { _ } from 'meteor/underscore';
+import  '../imports/api/UsersPublications'
+import '../imports/api/UsersMethods'
 const SEED_USERNAME = 'geovana';
 const SEED_PASSWORD = 'password';
+
+
 
 const insertTask = (taskText) =>
   TasksCollection.insertAsync({ texto: taskText, data: '10:00', usuario: 'Geovana',descricao: null });
@@ -14,6 +19,8 @@ Meteor.startup(async () => {
     await Accounts.createUser({
       username: SEED_USERNAME,
       password: SEED_PASSWORD,
+      profile: {name: '', birthDate: '', sex: '',companyName: '',avatarPhoto:''},
+      email: '',
     });
   }
   
@@ -31,3 +38,22 @@ Meteor.startup(async () => {
   
 });
 
+
+// Object.assing combina dois objetos
+Accounts.onCreateUser((options, user) => {
+
+  const customizedUser = Object.assign(
+    {
+      
+    },
+    user
+  );
+  
+  
+  // We still want the default hook's 'profile' behavior.
+  if (options.profile) {
+    customizedUser.profile = options.profile;
+  }
+
+  return customizedUser;
+});
