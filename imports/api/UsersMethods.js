@@ -2,16 +2,11 @@
 import {Meteor} from  'meteor/meteor';
 
 Meteor.methods({
-
-    'user.updateProfile'(newInfoUser){
-        const {birthDate, profile, sex, companyName, avatarPhoto} = newInfoUser;
+    'user.updateProfile'(profile){
+        console.log(profile)
         return Meteor.users.updateAsync(this.userId, {
             $set : {
-                birthDate: birthDate,
                 profile: profile,
-                sex: sex,
-                companyName: companyName,
-                avatarPhoto: avatarPhoto,
             }
         })
     }

@@ -5,19 +5,16 @@ import { useSubscribe, useTracker} from "meteor/react-meteor-data"
 import { Home } from './Home';
 import { Button } from '@mui/material';
 import ButtonUsage from './ButtonUsage';
+import { MeetingRoom } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 export const App = () => {
-  const isLoading = useSubscribe('userData');
-  const user = useTracker(() => Meteor.users.findOne());
+  const user = useTracker(() => Meteor.user());
+
+  return (<LoginForm/>)
 
 
-  return (<>
-  {user ? <div>
-    <Home username={user.username}/>
-    <ButtonUsage/>
-    </div> :<LoginForm/>}
-  </>);
 }

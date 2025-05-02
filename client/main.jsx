@@ -10,7 +10,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { FormProfile } from "../imports/ui/FormProfile";
-
+import { Home } from "../imports/ui/Home";
 
 Meteor.startup(() => {
   const container = document.getElementById("react-target");
@@ -19,6 +19,7 @@ Meteor.startup(() => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/home" element={<Home />} />
         <Route path="tasks" element={<ListTasks />} />
         <Route path="/tasks/:taskId" element={<InfoTask />} />
         <Route path="profile" element={<FormProfile />} />

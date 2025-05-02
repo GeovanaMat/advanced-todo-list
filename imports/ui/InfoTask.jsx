@@ -87,6 +87,7 @@ export const InfoTask = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     Meteor.callAsync("tasks.updateTask", formData);
     navigate("/tasks");
     setViewMode(true);

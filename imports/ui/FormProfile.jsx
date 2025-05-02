@@ -5,41 +5,47 @@ import {useTracker, useSubscribe} from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 export const FormProfile = () => {
-    const isLoading = useSubscribe('userData');
-    const user = useTracker(() => Meteor.users.findOne());
     const navigate = useNavigate();
-    const [formProfile, setFormProfile] = useState({name: '', birthDate: '', sex: '',companyName:'',avatarPhoto:'', emails: []});
-    
-    
-    useEffect(() => {
-        if(user){
-            setFormProfile({
-                name: 'geovana'
-            });
-        }
-        
-      }, []);
-    
-          
+    const isLoading = useSubscribe('userData');
+    const user = useTracker(()  => {
+      return Meteor.users.findOne({});
+    })
 
-    if (isLoading()) {
-        return <>Carregando...</>;
+    const [formProfile,setFormProfile] = useState({name: '', birthDate: '',companyName: '',sex: '', avatarPhoto: '',email: ''});
+
+
+    const handleChange = (e) => {
+      const {name, value} = e.target;
+      setFormProfile((prevFormProfile) => {
+        return {...prevFormProfile, [name]: value}
+      });
+    }
+
+    const handleSubmit =(e) => {
+      e.preventDefault();
+      Meteor.callAsync('user.updateProfile',formProfile);
+      
+    }
+
+    useEffect(()=>{
+      if(user){
+        setFormProfile({
+          name: user.profile.name || '',
+          birthDate: user.profile.birthDate || '',
+          companyName: user.profile.companyName || '',
+          sex: user.profile.sex || '',
+          avatarPhoto: user.profile.avatarPhoto || '',
+          email: user.profile.email || '',
+        })
       }
- 
-    
-
+    }, [isLoading()])
 
      
-    
-   
-    
+    if(isLoading()){
+      return <span>Carregando</span>
+    }   
 
-    
-    
-    const handleChange = (e) => {
-       
-      };
-    
+
     return(
         <>
         <div className="form">
@@ -61,7 +67,7 @@ export const FormProfile = () => {
                     </Typography>
         </div>
         
-        <form className='form'>
+        <form className='form' onSubmit={handleSubmit} >
         <Avatar/>
        
         <Stack
@@ -71,44 +77,43 @@ export const FormProfile = () => {
            }}
         >
              <TextField
-                    required
+                    
                     size='medium'
                     id="outlined-required"
                     label="Nome"
                     type="text"
-                    // disabled={viewMode}
-                    name="profile"
-                    //value={formProfile.name}
                     
+                    name="name"
+                    value={formProfile.name}
                     onChange={(e) => handleChange(e)}
                   />
 
 <TextField
-                    required
+                    
                     size='medium'
                     id="outlined-required"
                     label="E-mail"
                     type="text"
-                    // disabled={viewMode}
+                   
                     name="email"
-                    //value={email ? email : ''}
+                    value={formProfile.email}
                     
-                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />    
 <FormControl fullWidth>
 
 <TextField
-                    required
+                    
                     size='medium'
                     id="outlined-required"
                     type="date"
                     label='Data de aniversário'
-                    // disabled={viewMode}
-                    name="dataAniversario"
-                    //value={birthDate}
+                    
+                    name="birthDate"
+                    value={formProfile.birthDate}
                     slotProps={{ inputLabel: { shrink: true } }}
                    
-                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />   
 </FormControl>
 
@@ -117,8 +122,10 @@ export const FormProfile = () => {
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
-
+    value={formProfile.sex }
+    name='sex'
     label="Sexo"
+    onChange={(e) => handleChange(e)}
 
   >
     <MenuItem value={"F"}>Feminino</MenuItem>
@@ -131,11 +138,10 @@ export const FormProfile = () => {
                     id="outlined-required"
                     label="Nome da Empresa"
                     type="text"
-                    // disabled={viewMode}
-                    name="empresa"
-                    //value={companyName}
-                    // value={formData.nome ? formData.nome : ""}
-                    // onChange={(e) => handleChange(e)}
+                    
+                    name="companyName"
+                    value={formProfile.companyName}
+                    onChange={(e) => handleChange(e)}
                   />   
   
         </Stack>
@@ -144,13 +150,15 @@ export const FormProfile = () => {
            <Button
            variant="contained"
            color="gray"
-           onClick={() => navigate('/')}
+          onClick={() => navigate('/home')}
            >
             Cancelar
            </Button>
            <Button
            variant="contained"
-           color="gray">
+           color="gray"
+           type='submit'
+           >
             Salvar
            </Button>
         </Stack>
