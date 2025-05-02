@@ -44,8 +44,8 @@ export const LoginForm = () => {
         </Stack> 
       </form>
 
-      <span>Cadastrar</span>
-      <span>Recuperar Senha</span>
+      {/* <span>Cadastrar</span>
+      <span>Recuperar Senha</span> */}
     </>
   );
 };

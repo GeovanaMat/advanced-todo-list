@@ -47,7 +47,7 @@ export const Home = () => {
 
   return (
     <Box display={"flex"}>
-      <DrawerHome  username={currentUser?.username} email={currentUser.profile?.email}/>
+      <DrawerHome photo={currentUser?.profile?.avatarPhoto}  username={currentUser?.username} email={currentUser.profile?.email}/>
       <Box
         display={"flex"}
         width={"100%"}

@@ -12,8 +12,9 @@ import {
   Select,
   MenuItem,
   FormControl,
+  IconButton,
 } from "@mui/material";
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/TasksCollection";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +44,11 @@ export const ListTasks = () => {
   };
 
   return (
+    
     <>
+    <IconButton onClick={() => navigate('/home')}>
+    <ArrowBackIcon fontSize="large"/>
+    </IconButton>
       <Typography
         style={{
           justifyContent: "center",
