@@ -95,7 +95,7 @@ export const ListTasks = () => {
               })}
             </Stack>
           </List>
-          <FormTask
+          <FormTask user={user}
           />
         </div>
       )}

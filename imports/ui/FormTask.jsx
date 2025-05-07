@@ -11,7 +11,7 @@ import {
   Select,
 } from "@mui/material";
 
-export const FormTask = () => {
+export const FormTask = ({user}) => {
 
       const [nomeTarefa, setNomeTarefa] = React.useState("");
       const [horaTarefa, setHoraTarefa] = React.useState("00:00");
