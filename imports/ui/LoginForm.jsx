@@ -9,8 +9,21 @@ export const LoginForm = () => {
 
   const handleSubumit = (e) => {
     e.preventDefault();
-    Meteor.loginWithPassword(username, password);
-    navigate('/home');
+    Meteor.call('user.createUser', username, password, (error, result) => {
+      if (error) {
+        console.error('Erro ao criar usuário:', error);
+        return;
+      }
+  
+      
+      Meteor.loginWithPassword(username, password, (loginError) => {
+        if (loginError) {
+          console.error('Erro ao fazer login:', loginError);
+        } else {
+          navigate('/home');
+        }
+      });
+    });
   };
 
   return (

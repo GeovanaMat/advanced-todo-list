@@ -7,7 +7,7 @@ import { _ } from 'meteor/underscore';
 import  '../imports/api/UsersPublications'
 import '../imports/api/UsersMethods'
 import '../imports/api/PhotosMethods';
-const SEED_USERNAME = 'geovana';
+const SEED_USERNAME = 'userPadrao';
 const SEED_PASSWORD = 'password';
 
 
