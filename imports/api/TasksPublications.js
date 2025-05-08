@@ -4,15 +4,22 @@ import {TasksCollection} from "./TasksCollection"
 
 
 
-Meteor.publish('tasks', function tasksPublication(){
+Meteor.publish('tasks', function tasksPublication(mostrarCompletas){
+
 
     if (!this.userId) {
         return this.ready();   
     }
-    return TasksCollection.find({
+
+    const query = {
         $or: [
-            {tipo: 'publico'},
-            {usuarioId: this.userId}
+          { tipo: 'publico' },
+          { usuarioId: this.userId }
         ]
-    });
+      };
+    
+      if(!mostrarCompletas){
+        query.situacao = {$in : ['cadastrada','pendente']}
+      }
+    return TasksCollection.find(query);
   });

@@ -13,18 +13,27 @@ import {
   MenuItem,
   FormControl,
   IconButton,
+  FormControlLabel,
+  Checkbox
+
 } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/TasksCollection";
 import { useNavigate } from "react-router-dom";
 import { FormTask } from "./FormTask";
+import { ReactiveVar } from "meteor/reactive-var";
+
+const completas = new ReactiveVar(false);
 
 export const ListTasks = () => {
   const user = useTracker(() => Meteor.user());
-  const isLoading = useSubscribe("tasks");
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  
+  const mostrarCompletas = useTracker(() => completas.get());
+  const isLoading = useSubscribe("tasks", mostrarCompletas);
 
+  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  
   const navigate = useNavigate();
 
 
@@ -72,6 +81,15 @@ export const ListTasks = () => {
         </div>
       ) : (
         <div className="tasks-container">
+          <FormControlLabel
+  control={
+    <Checkbox
+      checked={completas.get()}
+      onChange={(e) => completas.set(e.target.checked)}
+    />
+  }
+  label="Exibir tarefas concluídas"
+/>
           <List sx={{ width: "50%" }}>
             <Stack
               spacing={{ xs: 1, sm: 2 }}

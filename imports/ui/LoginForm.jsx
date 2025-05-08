@@ -6,11 +6,16 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [erro, setErro] = useState("");
   const handleSubumit = (e) => {
     e.preventDefault();
-    Meteor.loginWithPassword(username, password);
-    navigate('/home');
+    Meteor.loginWithPassword(username, password, (error) => {
+      if(error){
+        return setErro("Usuário ou senha inválido");
+      }
+      navigate('/home');
+    });
+    
   };
 
   return (
@@ -25,9 +30,10 @@ export const LoginForm = () => {
         <TextField
           required
           id="outlined-required"
-          label="Usuário"
+          label="Username"
           type="text"
           name="usuario"
+          helperText={erro}
           onChange={(e) => setUsername(e.target.value)}
         />
 
