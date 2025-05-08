@@ -10,6 +10,7 @@ export const DrawerHome = ({username,email,photo}) => {
         
         Meteor.logout();
         navigate('/');};
+
     const drawerWidth = '15%'
     return(<>
      <Drawer

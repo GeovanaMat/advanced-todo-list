@@ -12,14 +12,18 @@ Meteor.methods({
         })
     },
     'user.createUser'(username, password){
-        if(!(Meteor.users.findOneAsync({_id: username}))){
+        if(Accounts.findUserByUsername(username)){
             return Accounts.createUserAsync({
                 username: username,
                 password: password,
                 profile: {name: '', birthDate: '', sex: '',companyName: '',avatarPhoto:''},
-                email: '',
-              });
+              }, 
+            );
         }
+        else{
+            throw new Meteor.Error('bad','Usuário já existe');
+        }
+        
         
     }
 });

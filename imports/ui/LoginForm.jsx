@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import {Button, Stack, TextField} from '@mui/material'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -9,26 +9,13 @@ export const LoginForm = () => {
 
   const handleSubumit = (e) => {
     e.preventDefault();
-    Meteor.call('user.createUser', username, password, (error, result) => {
-      if (error) {
-        console.error('Erro ao criar usuário:', error);
-        return;
-      }
-  
-      
-      Meteor.loginWithPassword(username, password, (loginError) => {
-        if (loginError) {
-          console.error('Erro ao fazer login:', loginError);
-        } else {
-          navigate('/home');
-        }
-      });
-    });
+    Meteor.loginWithPassword(username, password);
+    navigate('/home');
   };
 
   return (
     <>
-      <form className="form" onSubmit={handleSubumit}>
+      <form className="form" onSubmit={(e) => handleSubumit(e)}>
         <h1>Bem vindo ao ToDo List</h1>
 
         <Stack 
@@ -55,10 +42,8 @@ export const LoginForm = () => {
 
         <Button type="submit" variant="contained" color="gray">Entrar</Button>
         </Stack> 
+        <Link to={'/cadastro'}><h5>Cadastrar-se</h5></Link>
       </form>
-
-      {/* <span>Cadastrar</span>
-      <span>Recuperar Senha</span> */}
     </>
   );
 };
