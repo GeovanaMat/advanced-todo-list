@@ -4,7 +4,7 @@ import {TasksCollection} from "./TasksCollection"
 
 
 
-Meteor.publish('tasks', function tasksPublication(mostrarCompletas){
+Meteor.publish('tasks', function tasksPublication(mostrarCompletas,pesquisa,pagina, limite = 4){
 
 
     if (!this.userId) {
@@ -21,5 +21,12 @@ Meteor.publish('tasks', function tasksPublication(mostrarCompletas){
       if(!mostrarCompletas){
         query.situacao = {$in : ['cadastrada','pendente']}
       }
-    return TasksCollection.find(query);
+
+      if(pesquisa){
+        query.nome = {$regex: new RegExp(pesquisa,'i')}
+      }
+
+      const skip = (pagina - 1) * limite;
+
+    return TasksCollection.find(query, {skip,limit: limite});
   });
